@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './logica.component.html',
-  styleUrl: './logica.component.css'
+  styleUrls: ['./logica.component.css']
 })
 export class LogicaComponent {
   scrollToEntrada() {
@@ -14,4 +14,5 @@ export class LogicaComponent {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
+  
 }

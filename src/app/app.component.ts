@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { LogicaComponent } from "./logica/logica.component";
+import { LogicaComponent } from './logica/logica.component'; // ✅ Importar el componente
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [LogicaComponent], // ✅ Agregarlo aquí
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'MateDiscreta';
+  title = 'matediscreta';
 }
