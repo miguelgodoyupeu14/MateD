@@ -20,31 +20,100 @@
   </main>
 </div>
 <section id="entrada" class="entrada">
-  <!-- Primer bloque: izquierda -->
+  <!-- Bloque de entrada -->
   <div class="tarjeta-bloque">
     <h2 class="entrada-title"><span class="blue">E</span>valuación <span class="blue">P</span>roposicional</h2>
     <div class="card">
       <h2>Ingrese texto</h2>
-      <textarea placeholder="Si esta es una sociedad matriarcal, entonces el hermano de la madre es la cabeza de familia..."></textarea>
-      <button class="btn-enviar">Enviar</button>
+      <textarea [(ngModel)]="enunciado" placeholder="Escribe el enunciado aquí..." class="textarea-enunciado"></textarea>
+      <button (click)="procesarEnunciado()" class="btn-enviar">Procesar</button>
     </div>
-    <div class="card">
+    <div *ngIf="cargando" class="loading">
+      <p>Cargando...</p>
+    </div>
+
+    <!-- Resultados -->
+    <div *ngIf="resultadoProcesar && !cargando" class="card resultados">
       <h2>Respuesta</h2>
-      <textarea placeholder="Aquí aparecerá la respuesta..."></textarea>
+
+        <!-- Enunciado -->
+        <div class="result-item">
+          <h4>Enunciado:</h4>
+          <p>{{ resultadoProcesar.enunciado }}</p>
+        </div>
+
+        <!-- Variables -->
+        <div class="result-item">
+          <h4>Variables:</h4>
+          <ul>
+            <li *ngFor="let variable of resultadoProcesar.variables">{{ variable }}</li>
+          </ul>
+        </div>
+
+        <!-- Leyes Aplicadas -->
+        <div class="result-item">
+          <h4>Leyes Aplicadas:</h4>
+          <ul>
+            <li *ngFor="let ley of resultadoProcesar.leyes_aplicadas">{{ ley }}</li>
+          </ul>
+        </div>
+
+        <!-- Proposición Normal -->
+        <div class="result-item">
+          <h4>Proposición Normal:</h4>
+          <div class="input-container">
+            <input [(ngModel)]="resultadoProcesar.proposicion" readonly class="styled-input" />
+            <button (click)="copiarTexto(resultadoProcesar.proposicion)" class="btn-copiar">Copiar</button>
+          </div>
+        </div>
+
+        <!-- Proposición Simplificada -->
+        <div class="result-item">
+          <h4>Proposición Simplificada:</h4>
+          <div class="input-container">
+            <input [(ngModel)]="resultadoProcesar.proposicion_simplificada" readonly class="styled-input" />
+            <button (click)="copiarTexto(resultadoProcesar.proposicion_simplificada)" class="btn-copiar">Copiar</button>
+          </div>
+        </div>
     </div>
   </div>
+
 
   <!-- Segundo bloque: derecha -->
   <div class="tarjeta-bloque">
     <h2 class="entrada-title"><span class="blue">E</span>jemplo <span class="blue">P</span>roposicional</h2>
     <div class="card">
       <h2>Ingrese texto</h2>
-      <textarea placeholder="Ejemplo: (p ∧ ¬q) → r"></textarea>
-      <button class="btn-enviar">Enviar</button>
+      <textarea [(ngModel)]="proposicion" placeholder="Ejemplo: (p ∧ ¬q) → r"></textarea>
+      <button (click)="evaluarProposicion()" class="btn-enviar">Enviar</button>
     </div>
-    <div class="card">
+    <div *ngIf="cargando2" class="loading">
+      <p>Cargando...</p>
+    </div>
+    <div class="card" *ngIf="resultadoEvaluar && !cargando2">
       <h2>Respuesta</h2>
-      <textarea placeholder="Aquí aparecerá la respuesta..."></textarea>
+      <table class="tabla-resultados" *ngIf="resultadoEvaluar && !cargando2">y
+        <thead>
+          <tr>
+            <th *ngFor="let variable of resultadoEvaluar.variables">{{ variable }}</th>
+            <th>Proposición</th>
+            <th>Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let resultado of resultadoEvaluar.resultados">
+            <td *ngFor="let variable of resultadoEvaluar.variables">
+              {{ resultado.valores[variable] ? 'Verdadero' : 'Falso' }}
+            </td>
+            <td>{{ propo }}</td>
+            <td>{{ resultado.resultado ? 'Verdadero' : 'Falso' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tipo-proposicion">
+        <h3>Tipo de Proposición:</h3>
+        <p>{{ tipoProposicion }}</p>
+      </div>
     </div>
   </div>
 </section>
