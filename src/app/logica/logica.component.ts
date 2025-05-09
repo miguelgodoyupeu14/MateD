@@ -27,12 +27,12 @@ export class LogicaComponent {
     if (!this.enunciado) return; // Evitar enviar una solicitud vacía
     this.cargando = true;
     this.leyesService.procesarEnunciado(this.enunciado).subscribe(
-      (response) => {
+      (response:any) => {
         this.resultadoProcesar = response;
         this.cargando = false;
         console.log('Resultado de procesar enunciado:', response);
       },
-      (error) => {
+      (error:any) => {
         this.cargando = false;
         this.resultadoEvaluar = null;
         this.toastr.error('Error al Procesar Enunciado', 'Error');
@@ -46,13 +46,13 @@ export class LogicaComponent {
     this.propo = this.proposicion;
     this.cargando2 = true;
     this.leyesService.evaluarProposicion(this.propo).subscribe(
-      (response) => {
+      (response:any) => {
         this.resultadoEvaluar = response;
         this.cargando2 = false;
         this.determinarTipoProposicion(response.resultado_final);
         console.log('Resultado de evaluar proposición:', response);
       },
-      (error) => {
+      (error:any) => {
         this.cargando2 = false;
         this.resultadoEvaluar = null;
         this.toastr.error('Error al Evaluar Proposición', 'Error');
