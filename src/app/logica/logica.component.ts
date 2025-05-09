@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { EvaluarProposicionResponse, LeyesService, ProcesarEnunciadoResponse } from '../service/leyes.service';
-import { FormsModule, NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-logica',
