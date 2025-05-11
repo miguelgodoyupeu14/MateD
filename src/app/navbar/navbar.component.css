@@ -1,0 +1,50 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+  padding: 10px 30px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4dabf7;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.nav-links {
+  border: 1px solid beige;  
+  list-style: none;
+  display: flex;
+  gap: 100px;
+  margin: 35px;
+  padding: 10px 60px;
+  margin-left: 800px;
+  border-radius: 4px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #4dabf7;
+}
+
+.navbar-right .avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}

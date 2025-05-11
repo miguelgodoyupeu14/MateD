@@ -1,0 +1,120 @@
+<div class="container">
+  <div class="logo">
+    <img src="frontend.jpeg" alt="Logo" />
+  </div>
+
+  <main class="hero">
+    <div class="text">
+      <h2>Prof. Juan Tapia</h2>
+      <h1>
+        <span class="blue">P</span>ERMUTACIONES Y <span class="blue">C</span>OMBINACIONES
+      </h1>
+      <p>
+      Permutaciones y combinaciones son dos conceptos matemáticos que se refieren a la forma de seleccionar y ordenar un conjunto de elementos. La diferencia entre permutaciones y combinaciones es que en las permutaciones el orden de los elementos importa, mientras que en las combinaciones el orden de los elementos no importa. 
+      </p>
+        <button (click)="scrollToEntrada()">LET'S GO</button>
+    </div>
+    <div class="image">
+      <img src="cerebro.png" alt="Cerebro animado" />
+    </div>
+  </main>
+</div>
+
+<section id="entrada" class="entrada">
+  <!-- Bloque de entrada -->
+  <div class="tarjeta-bloque">
+    <h2 class="entrada-title"><span class="blue">E</span>valuación <span class="blue">P</span>roposicional</h2>
+    <div class="card">
+      <h2>Ingrese texto</h2>
+      <textarea [(ngModel)]="enunciado" placeholder="Escribe el enunciado aquí..." class="textarea-enunciado"></textarea>
+      <button (click)="procesarEnunciado()" class="btn-enviar">Procesar</button>
+    </div>
+    <div *ngIf="cargando" class="loading">
+      <p>Cargando...</p>
+    </div>
+
+    <!-- Resultados -->
+    <div *ngIf="resultadoProcesar && !cargando" class="card resultados">
+      <h2>Respuesta</h2>
+
+        <!-- Enunciado -->
+        <div class="result-item">
+          <h4>Enunciado:</h4>
+          <p>{{ resultadoProcesar.enunciado }}</p>
+        </div>
+
+        <!-- Variables -->
+        <div class="result-item">
+          <h4>Variables:</h4>
+          <ul>
+            <li *ngFor="let variable of resultadoProcesar.variables">{{ variable }}</li>
+          </ul>
+        </div>
+
+        <!-- Leyes Aplicadas -->
+        <div class="result-item">
+          <h4>Leyes Aplicadas:</h4>
+          <ul>
+            <li *ngFor="let ley of resultadoProcesar.leyes_aplicadas">{{ ley }}</li>
+          </ul>
+        </div>
+
+        <!-- Proposición Normal -->
+        <div class="result-item">
+          <h4>Proposición Normal:</h4>
+          <div class="input-container">
+            <input [(ngModel)]="resultadoProcesar.proposicion" readonly class="styled-input" />
+            <button (click)="copiarTexto(resultadoProcesar.proposicion)" class="btn-copiar">Copiar</button>
+          </div>
+        </div>
+
+        <!-- Proposición Simplificada -->
+        <div class="result-item">
+          <h4>Proposición Simplificada:</h4>
+          <div class="input-container">
+            <input [(ngModel)]="resultadoProcesar.proposicion_simplificada" readonly class="styled-input" />
+            <button (click)="copiarTexto(resultadoProcesar.proposicion_simplificada)" class="btn-copiar">Copiar</button>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+  <!-- Segundo bloque: derecha -->
+  <div class="tarjeta-bloque">
+    <h2 class="entrada-title"><span class="blue">E</span>jemplo <span class="blue">P</span>roposicional</h2>
+    <div class="card">
+      <h2>Ingrese texto</h2>
+      <textarea [(ngModel)]="proposicion" placeholder="Ejemplo: (p ∧ ¬q) → r"></textarea>
+      <button (click)="evaluarProposicion()" class="btn-enviar">Enviar</button>
+    </div>
+    <div *ngIf="cargando2" class="loading">
+      <p>Cargando...</p>
+    </div>
+    <div class="card" *ngIf="resultadoEvaluar && !cargando2">
+      <h2>Respuesta</h2>
+      <table class="tabla-resultados" *ngIf="resultadoEvaluar && !cargando2">y
+        <thead>
+          <tr>
+            <th *ngFor="let variable of resultadoEvaluar.variables">{{ variable }}</th>
+            <th>Proposición</th>
+            <th>Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let resultado of resultadoEvaluar.resultados">
+            <td *ngFor="let variable of resultadoEvaluar.variables">
+              {{ resultado.valores[variable] ? 'Verdadero' : 'Falso' }}
+            </td>
+            <td>{{ propo }}</td>
+            <td>{{ resultado.resultado ? 'Verdadero' : 'Falso' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tipo-proposicion">
+        <h3>Tipo de Proposición:</h3>
+        <p>{{ tipoProposicion }}</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,5 +1,9 @@
 @import 'ngx-toastr/toastr';
+@import "primeicons/primeicons.css";
 body{
   padding: 0;
   margin: 0;
+   background:
+    radial-gradient(circle at 30% 30%, #1e1e1e 0%, #0e0e0e 40%, #000000 100%),
+    linear-gradient(to bottom, transparent 0%, #111111 60%, #000000 100%);
 }

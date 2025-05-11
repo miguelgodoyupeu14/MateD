@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { LogicaComponent } from './logica/logica.component'; // ✅ Importar el componente
+import { NavbarComponent } from './navbar/navbar.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LogicaComponent], // ✅ Agregarlo aquí
+  imports: [NavbarComponent, RouterOutlet], // ✅ Agregarlo aquí
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
