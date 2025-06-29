@@ -10,7 +10,7 @@
         <span class="blue">P</span>ERMUTACIONES Y <span class="blue">C</span>OMBINACIONES
       </h1>
       <p>
-      Permutaciones y combinaciones son dos conceptos matemáticos que se refieren a la forma de seleccionar y ordenar un conjunto de elementos. La diferencia entre permutaciones y combinaciones es que en las permutaciones el orden de los elementos importa, mientras que en las combinaciones el orden de los elementos no importa. 
+      Permutaciones y combinaciones son dos conceptos matemáticos que se refieren a la forma de seleccionar y ordenar un conjunto de elementos. La diferencia entre permutaciones y combinaciones es que en las permutaciones el orden de los elementos importa, mientras que en las combinaciones el orden de los elementos no importa.
       </p>
         <button (click)="scrollToEntrada()">LET'S GO</button>
     </div>
@@ -23,97 +23,106 @@
 <section id="entrada" class="entrada">
   <!-- Bloque de entrada -->
   <div class="tarjeta-bloque">
-    <h2 class="entrada-title"><span class="blue">E</span>valuación <span class="blue">P</span>roposicional</h2>
+    <h2 class="entrada-title"><span class="blue">E</span>valuar <span class="blue">P</span>ermutacion</h2>
     <div class="card">
       <h2>Ingrese texto</h2>
       <textarea [(ngModel)]="enunciado" placeholder="Escribe el enunciado aquí..." class="textarea-enunciado"></textarea>
-      <button (click)="procesarEnunciado()" class="btn-enviar">Procesar</button>
+      <button (click)="procesarEnunciado()" class="btn-enviar" [disabled]="!enunciado || cargando">Procesar</button>
     </div>
     <div *ngIf="cargando" class="loading">
       <p>Cargando...</p>
     </div>
 
     <!-- Resultados -->
-    <div *ngIf="resultadoProcesar && !cargando" class="card resultados">
+    <div *ngIf="resultadoProcesar  && resultadoProcesar.total_elementos != 0 && resultadoProcesar.elementos_seleccionados != 0 && !cargando" class="card resultados">
       <h2>Respuesta</h2>
 
-        <!-- Enunciado -->
+
+
         <div class="result-item">
-          <h4>Enunciado:</h4>
-          <p>{{ resultadoProcesar.enunciado }}</p>
+          <h4>N: {{ resultadoProcesar.total_elementos! }}</h4>
         </div>
 
-        <!-- Variables -->
+
         <div class="result-item">
-          <h4>Variables:</h4>
-          <ul>
-            <li *ngFor="let variable of resultadoProcesar.variables">{{ variable }}</li>
-          </ul>
+          <h4>R: {{ resultadoProcesar.elementos_seleccionados! }}</h4>
         </div>
 
-        <!-- Leyes Aplicadas -->
-        <div class="result-item">
-          <h4>Leyes Aplicadas:</h4>
-          <ul>
-            <li *ngFor="let ley of resultadoProcesar.leyes_aplicadas">{{ ley }}</li>
-          </ul>
-        </div>
 
-        <!-- Proposición Normal -->
+
         <div class="result-item">
-          <h4>Proposición Normal:</h4>
-          <div class="input-container">
+          <h4>¿Importa el orden?: {{ resultadoProcesar.importa_orden! ? 'Sí' : 'No' }}</h4>
+          <h4>¿Todos participan?: {{ resultadoProcesar.todos_participan! ? 'Sí' : 'No' }}</h4>
+          <h4>¿Selección repetida?: {{ resultadoProcesar.seleccion_repetida! ? 'Sí' : 'No' }}</h4>
+          <!-- <div class="input-container">
             <input [(ngModel)]="resultadoProcesar.proposicion" readonly class="styled-input" />
             <button (click)="copiarTexto(resultadoProcesar.proposicion)" class="btn-copiar">Copiar</button>
-          </div>
+          </div> -->
         </div>
-
-        <!-- Proposición Simplificada -->
-        <div class="result-item">
-          <h4>Proposición Simplificada:</h4>
-          <div class="input-container">
-            <input [(ngModel)]="resultadoProcesar.proposicion_simplificada" readonly class="styled-input" />
-            <button (click)="copiarTexto(resultadoProcesar.proposicion_simplificada)" class="btn-copiar">Copiar</button>
-          </div>
-        </div>
+        <button class="btn-enviar" (click)="copiaraCalculadora()" style="margin-top: 16px; width: 100%;" [disabled]="!resultadoProcesar">Calcular</button>
     </div>
   </div>
 
 
   <!-- Segundo bloque: derecha -->
   <div class="tarjeta-bloque">
-    <h2 class="entrada-title"><span class="blue">E</span>jemplo <span class="blue">P</span>roposicional</h2>
+    <h2 class="entrada-title"><span class="blue">E</span>jemplo <span class="blue">P</span>ermutacion</h2>
     <div class="card">
-      <h2>Ingrese texto</h2>
-      <textarea [(ngModel)]="proposicion" placeholder="Ejemplo: (p ∧ ¬q) → r"></textarea>
-      <button (click)="evaluarProposicion()" class="btn-enviar">Enviar</button>
+      <h2>Ingrese problema</h2>
+      <form (ngSubmit)="evaluarProposicion()">
+        <div class="input-row">
+          <div class="input-group">
+            <label for="n">N:</label>
+            <input id="n" type="number" [(ngModel)]="inputData.total_elementos" name="n" required min="1" />
+          </div>
+          <div class="input-group">
+            <label for="r">R:</label>
+            <input id="r" type="number" [(ngModel)]="inputData.elementos_seleccionados" name="r" required min="1" />
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
+            <label>¿Importa el orden?</label>
+            <select [(ngModel)]="inputData.importa_orden" name="importa_orden" required>
+              <option [ngValue]="true">Sí</option>
+              <option [ngValue]="false">No</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>¿Todos participan?</label>
+            <select [(ngModel)]="inputData.todos_participan" name="todos_participan" required>
+              <option [ngValue]="true">Sí</option>
+              <option [ngValue]="false">No</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>¿Selección repetida?</label>
+            <select [(ngModel)]="inputData.seleccion_repetida" name="seleccion_repetida" required>
+              <option [ngValue]="true">Sí</option>
+              <option [ngValue]="false">No</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-enviar" [disabled]="!inputData.total_elementos || !inputData.elementos_seleccionados">Calcular</button>
+      </form>
     </div>
     <div *ngIf="cargando2" class="loading">
       <p>Cargando...</p>
     </div>
-    <div class="card" *ngIf="resultadoEvaluar && !cargando2">
+    <div class="card" *ngIf="!cargando2 && resultadoEvaluar.resultado != 0 && resultadoEvaluar.n != 0 && resultadoEvaluar.r != 0" >
       <h2>Respuesta</h2>
-      <table class="tabla-resultados" *ngIf="resultadoEvaluar && !cargando2">y
-        <thead>
-          <tr>
-            <th *ngFor="let variable of resultadoEvaluar.variables">{{ variable }}</th>
-            <th>Proposición</th>
-            <th>Resultado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let resultado of resultadoEvaluar.resultados">
-            <td *ngFor="let variable of resultadoEvaluar.variables">
-              {{ resultado.valores[variable] ? 'Verdadero' : 'Falso' }}
-            </td>
-            <td>{{ propo }}</td>
-            <td>{{ resultado.resultado ? 'Verdadero' : 'Falso' }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="result-item">
+        <h4>N: {{ resultadoEvaluar.n }}</h4>
+      </div>
+      <div class="result-item">
+        <h4>R: {{ resultadoEvaluar.r }}</h4>
+      </div>
+      <div class="result-item">
+        <h4>Resultado de la {{tipoResultado}}: {{ resultadoEvaluar.resultado }}</h4>
+      </div>
       <div class="tipo-proposicion">
         <h3>Tipo de Proposición:</h3>
-        <p>{{ tipoProposicion }}</p>
+        <p>{{ resultadoEvaluar.tipo }}</p>
       </div>
     </div>
   </div>

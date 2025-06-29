@@ -1,13 +1,20 @@
 <nav class="navbar">
   <div class="navbar-left">
-    <span class="logo"> <i class="pi pi-slack"></i> LogicMind</span>
-    <ul class="nav-links">
-      <li><a routerLink="/home">Home</a></li>
-      <li><a routerLink="/logica" routerLinkActive="active">Lógica</a></li>
-      <li><a routerLink="/permutaciones">Permutaciones</a></li>
-      <li><a href="https://wa.me/51924378488?text=Hola,%20quiero%20más%20info%20sobre%20Mate%20Discreta" target="_blank">
-    Contact
-  </a></li>
-    </ul>
+    <div>
+      <span class="logo"> <i class="pi pi-slack"></i> LogicMind</span>
+    </div>
+    <div >
+      <ul class="nav-links" style="margin-left: 40rem;">
+        <li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+        <li><a routerLink="/logica" routerLinkActive="active">Lógica</a></li>
+        <li><a routerLink="/permutaciones" routerLinkActive="active">Permutaciones</a></li>
+        <li><a href="https://wa.me/51924378488?text=Hola,%20quiero%20más%20info%20sobre%20Mate%20Discreta" target="_blank">
+          Contact
+        </a></li>
+      </ul>
+       <div class="logo2">
+    <img src="frontend.jpeg" alt="Logo" />
+  </div>
+    </div>
   </div>
 </nav>

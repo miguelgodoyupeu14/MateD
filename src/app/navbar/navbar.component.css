@@ -12,7 +12,23 @@
   align-items: center;
   gap: 40px;
 }
+.logo2 {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  z-index: 1000;
+  width: 100px;
+  height: 100px;
+}
 
+.logo2 img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease;
+}
 .logo {
   font-size: 2rem;
   font-weight: bold;
@@ -21,7 +37,7 @@
 }
 
 .nav-links {
-  border: 1px solid beige;  
+  border: 1px solid beige;
   list-style: none;
   display: flex;
   gap: 100px;
@@ -40,6 +56,16 @@
 
 .nav-links a:hover {
   color: #4dabf7;
+}
+
+.nav-links li a.active {
+  color: #3b82f6;
+  font-weight: bold;
+  border-bottom: 2.5px solid #3b82f6;
+  background: #e0e7ff;
+  border-radius: 6px 6px 0 0;
+  padding: 4px;
+  transition: background 0.2s, color 0.2s;
 }
 
 .navbar-right .avatar {
