@@ -20,6 +20,21 @@ export interface EvaluarProposicionResponse {
   }[];
   variables: string[];
 }
+
+
+export interface RespuestaProposicionResponse2 {
+    tipo: string,
+        n: number,
+        r: number,
+        resultado: number
+}
+export interface EvaluarProposicionResponse2 {
+    elementos_seleccionados: number,
+    importa_orden: boolean,
+    seleccion_repetida: boolean,
+    todos_participan: boolean,
+    total_elementos: number
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -36,5 +51,17 @@ export class LeyesService {
   evaluarProposicion(proposicion: string): Observable<EvaluarProposicionResponse> {
     const url = `${this.baseUrl}/evaluar`;
     return this.http.post<EvaluarProposicionResponse>(url, { proposicion });
+  }
+
+
+   procesarEnunciadoComb(enunciado: string): Observable<EvaluarProposicionResponse2> {
+    const url = `${this.baseUrl}/analizar_enunciado`;
+    return this.http.post<EvaluarProposicionResponse2|any>(url, { enunciado });
+  }
+
+  evaluarProposicionComb(proposicion: EvaluarProposicionResponse2): Observable<RespuestaProposicionResponse2> {
+    const url = `${this.baseUrl}/resolver_combinatoria`;
+    // Enviar el objeto directamente, no dentro de {proposicion: ...}
+    return this.http.post<RespuestaProposicionResponse2>(url, proposicion);
   }
 }

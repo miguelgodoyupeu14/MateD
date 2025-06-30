@@ -16,23 +16,7 @@
 }
 
 /* LOGO */
-.logo {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  z-index: 1000;
-  width: 100px;
-  height: 100px;
-}
 
-.logo img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s ease;
-}
 
 /* SECCIÓN PRINCIPAL */
 .hero {
