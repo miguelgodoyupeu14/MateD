@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="logo">
+    <img src="frontend.jpeg" alt="Logo" />
+  </div>
+
+  <main class="hero">
+    <div class="text">
+      <h2>Prof. Juan Tapia</h2>
+      <h1>
+        <span class="blue">T</span>EOREMA DE <span class="blue">D</span>IJKSTRA
+      </h1>
+      <p>
+      El algoritmo de Dijkstra, también llamado algoritmo de caminos mínimos, es un algoritmo para la determinación del camino más corto, dado un vértice origen, hacia el resto de los vértices en un grafo que tiene pesos en cada arista. 
+      </p>
+        <button (click)="scrollToEntrada()">LET'S GO</button>
+    </div>
+    <div class="image">
+      <img src="cerebro.png" alt="Cerebro animado" />
+    </div>
+  </main>
+</div>
+
+<section id="entrada" class="entrada">
+  <div class="tarjeta-bloque">
+    <h2 class="entrada-title"><span class="blue">D</span>ijkstra <span class="blue">S</span>olver</h2>
+    <div class="card">
+      <h3>Tipo de Entrada</h3>
+      <select [(ngModel)]="tipo" class="select-input">
+        <option value="texto">Texto</option>
+        <option value="aristas">Lista de Aristas</option>
+        <option value="matriz">Matriz de Adyacencia</option>
+        <option value="enunciado">Enunciado en Lenguaje Natural</option>
+      </select>
+
+      <div *ngIf="tipo === 'texto'" class="entrada-tipo">
+        <h3>Texto de Aristas</h3>
+        <textarea [(ngModel)]="texto" placeholder="Ej: A->B:3, B->C:4" class="textarea-enunciado"></textarea>
+      </div>
+
+      <div *ngIf="tipo === 'aristas'" class="entrada-tipo">
+        <h3>Lista de Aristas</h3>
+        <textarea [(ngModel)]="aristasInput" placeholder="Ej: A B 3, B C 2" class="textarea-enunciado"></textarea>
+      </div>
+
+      <div *ngIf="tipo === 'matriz'" class="entrada-tipo">
+        <h3>Etiquetas de Nodos</h3>
+        <input [(ngModel)]="labelsInput" placeholder="Ej: A B C" class="styled-input" />
+
+        <h3>Matriz de Adyacencia</h3>
+        <textarea [(ngModel)]="matrizInput" placeholder="Ej: 0 1 0\n0 0 2\n0 0 0" class="textarea-enunciado"></textarea>
+      </div>
+
+      <div *ngIf="tipo === 'enunciado'" class="entrada-tipo">
+        <h3>Enunciado</h3>
+        <textarea [(ngModel)]="texto" placeholder="Ej: Desde A puedes ir a B por 5 y a C por 2. Luego de B a C por 1, etc." class="textarea-enunciado"></textarea>
+      </div>
+
+      <div class="input-container">
+        <input [(ngModel)]="inicio" placeholder="Nodo de inicio" class="styled-input" />
+        <input [(ngModel)]="fin" placeholder="Nodo de destino" class="styled-input" />
+      </div>
+
+      <button (click)="calcular()" class="btn-enviar">Calcular</button>
+    </div>
+
+    <div *ngIf="respuesta" class="card resultados">
+      <h3>Camino más corto</h3>
+      <p *ngIf="respuesta.camino?.length; else sinCamino">
+        {{ respuesta.camino.join(' → ') }}
+      </p>
+      <ng-template #sinCamino><p>No hay camino disponible</p></ng-template>
+
+      <div class="result-item">
+        <h4>Costo:</h4>
+        <p>{{ respuesta.costo !== null ? respuesta.costo : 'No disponible' }}</p>
+      </div>
+
+      <div class="result-item">
+        <h4>Detalles por nodo:</h4>
+        <ul>
+          <li *ngFor="let key of getKeys(respuesta.resultado)">
+            {{ key }} → Distancia: {{ respuesta.resultado[key].distancia }}, Anterior: {{ respuesta.resultado[key].anterior ?? 'Ninguno' }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="result-item" *ngIf="respuesta.grafico_base64">
+        <h4>Gráfico:</h4>
+        <img [src]="'data:image/png;base64,' + respuesta.grafico_base64" alt="Gráfico del grafo" class="img-grafo" />
+      </div>
+    </div>
+  </div>
+</section>
+
